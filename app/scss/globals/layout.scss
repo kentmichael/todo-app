@@ -1,0 +1,12 @@
+@use '../util' as *;
+
+.container {
+  max-width: rem(543);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: rem(25);
+
+  @include breakpoint-up(medium){
+    padding: 0;
+  }
+}
