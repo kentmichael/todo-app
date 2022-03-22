@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--General meta tags-->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--For responsiveness-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo app</title>
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet"> 
+  <!--CSS File-->
+  <link rel="stylesheet" href="dist/style.css">
+  <!--JavaScript File-->
+  <script defer src="dist/script.js"></script>
+</head>
+<body>
+  <nav class="container">
+    <div class="logo">Todo</div>
+    <!--Temporary-->
+    <button id="theme-btn"></button>
+  </nav>
+  <main class="container">
+    <form class="input">
+      <label for="input-checkbox" class="input__checkbox">
+        <input type="checkbox" name="input-check" id="input-checkbox" class="input__checkbox--button">
+        <span></span>
+      </label>
+      <input type="text" name="input-text" id="input-todo" aria-label="input-todo" placeholder="Create a new todo..." class="input__text">
+    </form>
+    <ul>
+      <li>Temporary</li>
+    </ul>
+    <div class="filter">
+      <button class="filter__active">All</button>
+      <button>Active</button>
+      <button>Completed</button>
+    </div>
+    <div class="note">Drag and drop to reorder list</div>
+  </main>
+  
+</body>
+</html>

@@ -1,0 +1,38 @@
+:root {
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+  // Primary
+  --br-blue: hsl(220, 98%, 61%);
+  --ck-bg-from: hsl(192, 100%, 67%);
+  --ck-bg-to: hsl(280, 87%, 65%);
+
+  // Light theme default
+  --ul-bg: hsl(0, 0%, 98%);
+  --main-bg: hsl(236, 33%, 92%);
+  --linethrough-txt: hsl(233, 11%, 84%);
+  --btn-txt: hsl(236, 9%, 61%);
+  --ul-text: hsl(235, 19%, 35%);
+
+  // Dark theme
+  --btn-txt-hover: hsl(236, 33%, 92%); //hover
+  --vy-dk-g-blue2: hsl(237, 14%, 26%);
+}
+
+body.dark-theme {
+  --main-bg: hsl(235, 21%, 11%);
+  --ul-bg: hsl(235, 24%, 19%);
+  --ul-text: hsl(234, 39%, 85%);
+  --btn-txt: hsl(234, 11%, 52%);
+  --linethrough-txt: hsl(233, 14%, 35%);
+}
+
+// System prefered
+@media (prefers-color-scheme: dark) {
+    :root {
+      --main-bg: hsl(235, 21%, 11%);
+      --ul-bg: hsl(235, 24%, 19%);
+      --ul-text: hsl(234, 39%, 85%);
+      --btn-txt: hsl(234, 11%, 52%);
+      --linethrough-txt: hsl(233, 14%, 35%);
+    }
+}

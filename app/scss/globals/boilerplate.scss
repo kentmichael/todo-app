@@ -1,0 +1,43 @@
+@use '../util' as *;
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+  font-family: var(--font-body);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-size: rem(18);
+  font-weight: 400;
+  font-family: var(--font-body);
+  background-color: var(--main-bg);
+
+  background-image: url('/images/bg-mobile-light.jpg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100% auto;
+
+  @include breakpoint-up(medium){
+    padding-block: rem(80);
+    // height: 100vh;
+    // display: grid;
+    // align-content: center;
+    background-image: url('/images/bg-desktop-light.jpg');
+  }
+}
+
+body.dark-bg {
+  background-image: url('/images/bg-mobile-dark.jpg');
+
+  @include breakpoint-up(medium){
+    background-image: url('/images/bg-desktop-dark.jpg');
+  }
+}
