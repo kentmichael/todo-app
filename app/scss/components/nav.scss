@@ -4,7 +4,10 @@ nav {
   display: flex;
   justify-content: space-between;
   margin-bottom: rem(40);
-  padding-top: rem(50);
+
+  @include breakpoint-up(medium){
+    margin-bottom: rem(50);
+  }
 
   .logo {
     font-size: rem(22);
@@ -12,38 +15,33 @@ nav {
     text-transform: uppercase;
     letter-spacing: rem(10);
     color: var(--white);
+
+    @include breakpoint-up(medium){
+      font-size: rem(32);
+    }
   }
 
   button {
-    position: relative;
     width: rem(22);
     height: rem(22);
     border: none;
     padding: 0;
     font-size: rem(10);
     font-family: var(--font-body);
-    color: var(--white);
     background-color: transparent;
     background-image: url('/images/icon-moon.svg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center center;
-    cursor: pointer;
+    cursor: pointer; 
 
-    &::before {
-      content: 'Night';
-      position: absolute;
-      top: 50%;
-      right: 120%;
-      transform: translateY(-50%);
+    @include breakpoint-up(medium){
+      width: rem(32);
+      height: rem(32);
     }
   }
 
   button.night {
     background-image: url('/images/icon-sun.svg');
-
-    &::before {
-      content: 'Day';
-    }
   }
 }
