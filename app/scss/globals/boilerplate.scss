@@ -13,17 +13,18 @@ html {
 }
 
 body {
-  padding: 0;
+  padding-inline: 0;
+  padding-block: rem(50);
   margin: 0;
   font-size: rem(18);
   font-weight: 400;
   font-family: var(--font-body);
   background-color: var(--main-bg);
-
   background-image: url('/images/bg-mobile-light.jpg');
   background-repeat: no-repeat;
   background-position: top;
   background-size: 100% auto;
+  transition: background-color 200ms ease-in;
 
   @include breakpoint-up(medium){
     padding-block: rem(80);

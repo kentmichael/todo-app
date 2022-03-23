@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet"> 
   <!--CSS File-->
   <link rel="stylesheet" href="dist/style.css">
+  <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/x-icon">
   <!--JavaScript File-->
   <script defer src="dist/script.js"></script>
 </head>
@@ -28,15 +29,32 @@
         <input type="checkbox" name="input-check" id="input-checkbox" class="input__checkbox--button">
         <span></span>
       </label>
-      <input type="text" name="input-text" id="input-todo" aria-label="input-todo" placeholder="Create a new todo..." class="input__text">
+      <input type="text" name="input-text" id="input-todo" aria-label="input-todo" placeholder="Create a new todo..." class="input__text" autofocus>
     </form>
     <ul>
-      <li>Temporary</li>
+      <li>
+        <form>
+          <label for="asd">
+            <input type="checkbox" name="asd" id="asd">
+            <span></span>
+          </label>
+        </form>
+        <div>Temporary</div>
+        <button></button>
+      </li>
     </ul>
+    <div class="filter-m">
+      <span>No items</span>
+      <button class="filter-m__clear">Clear Completed</button>
+    </div>
     <div class="filter">
-      <button class="filter__active">All</button>
-      <button>Active</button>
-      <button>Completed</button>
+      <span>No items</span>
+      <div class="filter__options">
+        <button class="filter__options--active">All</button>
+        <button>Active</button>
+        <button>Completed</button>
+      </div>
+      <button class="filter__clear">Clear Completed</button>
     </div>
     <div class="note">Drag and drop to reorder list</div>
   </main>
