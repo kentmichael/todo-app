@@ -20,33 +20,25 @@
 <body>
   <nav class="container">
     <div class="logo">Todo</div>
-    <!--Temporary-->
     <button id="theme-btn"></button>
   </nav>
+
   <main class="container">
-    <form class="input">
+    <form class="input" id="input-form">
       <label for="input-checkbox" class="input__checkbox">
-        <input type="checkbox" name="input-check" id="input-checkbox" class="input__checkbox--button">
+        <input type="checkbox" name="input-check" id="input-checkbox" class="input__checkbox--button" id="input-checkbox">
         <span></span>
       </label>
-      <input type="text" name="input-text" id="input-todo" aria-label="input-todo" placeholder="Create a new todo..." class="input__text" autofocus>
+      <input type="text" name="input-text" id="input-textfield" aria-label="input-todo" placeholder="Create a new todo..." class="input__text" autofocus required>
     </form>
-    <ul>
-      <li>
-        <form>
-          <label for="asd">
-            <input type="checkbox" name="asd" id="asd">
-            <span></span>
-          </label>
-        </form>
-        <div>Temporary</div>
-        <button></button>
-      </li>
-    </ul>
+
+    <ul id="todo-ul"></ul>
+
     <div class="filter-m">
       <span>No items</span>
       <button class="filter-m__clear">Clear Completed</button>
     </div>
+
     <div class="filter">
       <span>No items</span>
       <div class="filter__options">
@@ -56,8 +48,24 @@
       </div>
       <button class="filter__clear">Clear Completed</button>
     </div>
+
     <div class="note">Drag and drop to reorder list</div>
   </main>
+
+  <div class="modal">
+    <header>
+      Edit todo
+      <button class="modal-close"></button>
+    </header>
+    <form id="modal-form">
+      <textarea name="text-area" id="text-area" rows="10"></textarea>
+      <label for="text-area" id="success-message">Item saved!</label>
+      <!-- <input type="submit" value="Submit" id="submit-modal"> -->
+      <button class="modal-save">Save</button>
+      <button class="modal-close">Cancel</button>
+    </form>
+  </div>
+  <div class="modal-overlay"></div>
   
 </body>
 </html>

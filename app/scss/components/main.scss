@@ -95,6 +95,10 @@ ul {
   padding: 0;
   list-style-type: none;
 
+  >:not(:last-child) {
+    border-bottom: rem(1) solid var(--linethrough-txt);
+  }
+  
   @include breakpoint-down(small){
     &:not(:last-child) {
       border-bottom-left-radius: 0;
@@ -115,6 +119,7 @@ ul {
     padding-inline: rem(20);
     background-color: var(--ul-bg);
     transition: background-color 200ms ease-in;
+    color: var(--ul-text);
 
     @include breakpoint-up(medium){
       gap: rem(20);
@@ -181,7 +186,7 @@ ul {
       flex-grow: 1;
       font-size: rem(14);
       font-weight: 700;
-      color: var(--ul-text);
+      cursor: pointer;
 
       @include breakpoint-up(medium){
         font-size: rem(18);
@@ -209,6 +214,15 @@ ul {
   }
 }
 
+.li-completed {
+  color: var(--linethrough-txt);
+  text-decoration: line-through;
+}
+
+.disable-edit {
+  pointer-events: none;
+}
+
 .filter-m {
   display: flex;
   justify-content: space-between;
@@ -220,6 +234,7 @@ ul {
   padding-inline: rem(20);
   background-color: var(--ul-bg);
   transition: background-color 200ms ease-in;
+  border-top: rem(1) solid var(--linethrough-txt);
 
   @include breakpoint-up(medium) {
     display: none;
@@ -321,4 +336,121 @@ ul {
   text-align: center;
   font-size: rem(14);
   color: var(--btn-txt);
+}
+
+.modal {
+  position: fixed;
+  display: none;
+  width: rem(320);
+  border-radius: rem(5);
+  padding-inline: rem(20);
+  padding-block: rem(30);
+  background-color: var(--ul-bg);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+
+  @include breakpoint-up(medium){
+    width: rem(450);
+  }
+
+  &__show {
+    display: block;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: rem(20);
+    letter-spacing: rem(5);
+    text-transform: uppercase;
+    color: var(--ul-text);
+
+    button {
+      display: block;
+      padding: 0;
+      margin: 0;
+      border: none;
+      width: rem(13);
+      height: rem(13);
+      background-color: var(--ul-bg);
+      background-image: url('/images/icon-cross.svg');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center center;
+      cursor: pointer;
+
+      @include breakpoint-up(medium){
+        width: rem(20);
+        height: rem(20);
+      }
+    }
+  }
+
+  form {  
+
+    textarea {
+      margin-bottom: rem(10);
+      width: 100%;
+      border: none;
+      background-color: var(--main-bg);
+      color: var(--ul-text);
+      resize: none;
+    }
+
+    label {
+      display: block;
+      margin-bottom: rem(5);
+      font-size: rem(12);
+      color: lightgreen;
+      visibility: hidden;
+    }
+
+    // input[type="submit"] {
+    //   padding: 0;
+    //   margin-right: rem(10);
+    //   border: none;
+    //   background-color: var(--ul-bg);
+    //   color: var(--ul-text);
+    //   cursor: pointer;
+
+    //   @include breakpoint-up(medium){
+    //     font-size: rem(15);
+    //   }
+    // }
+
+    button {
+      padding: 0;
+      margin: 0;
+      border: none;
+      background-color: var(--ul-bg);
+      color: var(--ul-text);
+      cursor: pointer;
+
+      @include breakpoint-up(medium){
+        font-size: rem(15);
+      }
+    }
+  }
+}
+
+.changes-saved {
+  visibility: visible !important;
+}
+
+.modal-overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-bg);
+  top: 0;
+  opacity: .5;
+  display: none;
+
+  &__show {
+    display: block;
+  }
 }
