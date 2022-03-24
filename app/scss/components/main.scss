@@ -49,7 +49,7 @@
     }
 
     > input[type='checkbox']:checked + span {
-      content: url('/images/icon-check.svg');
+      content: url('../images/icon-check.svg');
       position: absolute;
       top: 0%;
       display: block;
@@ -88,12 +88,15 @@
 // Unordered list
 
 ul {
+  display: block;
   max-height: rem(370);
   overflow-y: auto;
   margin: 0;
   border-radius: rem(5);
   padding: 0;
   list-style-type: none;
+  scrollbar-color: var(--ck-bg-from) var(--ck-bg-to);
+  scrollbar-width: thin;
 
   >:not(:last-child) {
     border-bottom: rem(1) solid var(--linethrough-txt);
@@ -161,7 +164,7 @@ ul {
         }
 
         input[type='checkbox']:checked + span {
-          content: url('/images/icon-check.svg');
+          content: url('../images/icon-check.svg');
           position: absolute;
           top: 0%;
           display: block;
@@ -199,7 +202,7 @@ ul {
       height: rem(13);
       border: none;
       background-color: var(--ul-bg);
-      background-image: url('/images/icon-cross.svg');
+      background-image: url('../images/icon-cross.svg');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: 100% 100%;
@@ -221,6 +224,10 @@ ul {
 
 .disable-edit {
   pointer-events: none;
+}
+
+.hide-li {
+  display: none;
 }
 
 .filter-m {
@@ -255,6 +262,7 @@ ul {
     color: var(--linethrough-txt);
     cursor: pointer;
     transition: all 200ms ease-in;
+    display: block !important;
 
     &:hover {
       color: var(--btn-txt-hover);
@@ -376,7 +384,7 @@ ul {
       width: rem(13);
       height: rem(13);
       background-color: var(--ul-bg);
-      background-image: url('/images/icon-cross.svg');
+      background-image: url('../images/icon-cross.svg');
       background-repeat: no-repeat;
       background-size: 100% 100%;
       background-position: center center;
@@ -408,18 +416,18 @@ ul {
       visibility: hidden;
     }
 
-    // input[type="submit"] {
-    //   padding: 0;
-    //   margin-right: rem(10);
-    //   border: none;
-    //   background-color: var(--ul-bg);
-    //   color: var(--ul-text);
-    //   cursor: pointer;
+    input[type="submit"] {
+      padding: 0;
+      margin-right: rem(10);
+      border: none;
+      background-color: var(--ul-bg);
+      color: var(--ul-text);
+      cursor: pointer;
 
-    //   @include breakpoint-up(medium){
-    //     font-size: rem(15);
-    //   }
-    // }
+      @include breakpoint-up(medium){
+        font-size: rem(15);
+      }
+    }
 
     button {
       padding: 0;
@@ -438,6 +446,11 @@ ul {
 
 .changes-saved {
   visibility: visible !important;
+}
+
+.changes-invalid {
+  visibility: visible !important;
+  color: tomato !important;
 }
 
 .modal-overlay {

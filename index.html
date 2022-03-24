@@ -16,56 +16,50 @@
   <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/x-icon">
   <!--JavaScript File-->
   <script defer src="dist/script.js"></script>
+  <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
   <nav class="container">
     <div class="logo">Todo</div>
-    <button id="theme-btn"></button>
+    <button id="theme-btn" aria-label="dark-light-toggle"></button>
   </nav>
-
   <main class="container">
     <form class="input" id="input-form">
       <label for="input-checkbox" class="input__checkbox">
         <input type="checkbox" name="input-check" id="input-checkbox" class="input__checkbox--button" id="input-checkbox">
         <span></span>
       </label>
-      <input type="text" name="input-text" id="input-textfield" aria-label="input-todo" placeholder="Create a new todo..." class="input__text" autofocus required>
+      <input type="text" name="input-text" id="input-textfield" aria-labelledby="input-todo" placeholder="Create a new todo..." class="input__text" autofocus required>
     </form>
-
     <ul id="todo-ul"></ul>
-
     <div class="filter-m">
-      <span>No items</span>
-      <button class="filter-m__clear">Clear Completed</button>
+      <span class="item-count">No items</span>
+      <button class="filter__clear">Clear Completed</button>
     </div>
-
     <div class="filter">
-      <span>No items</span>
+      <span class="item-count">No items</span>
       <div class="filter__options">
-        <button class="filter__options--active">All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button class="filter__options--active" id="filter-all">All</button>
+        <button id="filter-active">Active</button>
+        <button id="filter-completed">Completed</button>
       </div>
       <button class="filter__clear">Clear Completed</button>
     </div>
-
-    <div class="note">Drag and drop to reorder list</div>
+    <div class="note">Drag and drop to reorder list<br>Click the item to edit</div>
   </main>
-
   <div class="modal">
     <header>
       Edit todo
-      <button class="modal-close"></button>
+      <button class="modal-close" aria-label="modal-close"></button>
     </header>
     <form id="modal-form">
       <textarea name="text-area" id="text-area" rows="10"></textarea>
-      <label for="text-area" id="success-message">Item saved!</label>
-      <!-- <input type="submit" value="Submit" id="submit-modal"> -->
-      <button class="modal-save">Save</button>
+      <label for="text-area" id="success-message"></label>
+      <input type="submit" value="Submit" id="modal-save" aria-label="submit-button">
       <button class="modal-close">Cancel</button>
     </form>
   </div>
   <div class="modal-overlay"></div>
-  
 </body>
 </html>

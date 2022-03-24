@@ -1,3 +1,4 @@
+'use strict';
 /*
 The page is loaded with the theme based on the user's
 last preference (stored in the local storage). This
@@ -52,7 +53,8 @@ function setDarkMode(){
 loadThemePreferences();
 
 /*
-Todo Component
+  Selecting the input components and adding
+  event listeners to it.
 */
 
 const inputForm = document.querySelector('#input-form');
@@ -68,13 +70,121 @@ inputCheckbox.addEventListener('click', () => {
 });
 
 inputTextfield.addEventListener('keypress', (event) => {
-  if(event.key==='Enter') checkInputText();
+  if(event.key==='Enter'){
+    inputCheckbox.checked = true;
+    checkInputText();
+  }
 });
 
 function checkInputText(){
-  return inputTextfield ? todoComponent.addTodoData(inputTextfield.value) : false;
+  if(inputTextfield.value)
+    todoComponent.addTodoData(inputTextfield.value);
+  setTimeout(() => {
+    inputTextfield.value = '';
+    inputCheckbox.checked = false;
+  }, 200);
 }
 
+/*
+  Select the modal once, then the function
+  to edit will display this once the event 'click'
+  is provoked.
+*/
+const modal = document.querySelector('.modal');
+const modalOverlay = document.querySelector('.modal-overlay');
+const modalClose = document.querySelectorAll('.modal-close');
+const modalForm = document.querySelector('#modal-form');
+const modalTextarea = document.querySelector('#text-area');
+const saveUpdate = document.querySelector('#modal-save');
+const successMessage = document.querySelector('#success-message');
+
+modalForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+modalClose.forEach((element) => {
+  element.addEventListener('click', () => {
+    modal.classList.remove('modal__show');
+    modalOverlay.classList.remove('modal-overlay');
+  });
+});
+
+saveUpdate.addEventListener('click', () => {
+  successMessage.classList.remove('changes-invalid');
+  const textareaValue = document.querySelector('#text-area').value;
+  todoComponent.todoData.forEach((element) => {
+    if(element.todoId==todoComponent.openModal){
+      if(textareaValue!=false){
+        element.todoText = textareaValue;
+        const div = document.querySelector(`#todo-ul .${todoComponent.openModal} div`);
+        div.innerText = textareaValue;
+        successMessage.innerText = 'Changes saved!';
+        successMessage.classList.add('changes-saved');
+        setTimeout(() => {
+          modal.classList.remove('modal__show');
+          modalOverlay.classList.remove('modal-overlay');
+        }, 500);
+      }else {
+        successMessage.innerText = 'Invalid input! Text field must not be empty..';
+        successMessage.classList.add('changes-invalid');
+      }
+    }
+  });
+});
+
+/*
+  Select filter options and add event listeners to each.
+  Call to a function stored in todoFunctions.
+*/
+const clearCompleted = document.querySelectorAll('.filter__clear');
+const filterAll = document.querySelector('#filter-all');
+const filterActive = document.querySelector('#filter-active');
+const filterCompleted = document.querySelector('#filter-completed');
+
+clearCompleted.forEach((element) => {
+  element.addEventListener('click', () => {
+    todoComponent.clearCompleted();
+  });
+});
+
+filterAll.addEventListener('click', () => {
+  todoComponent.filterAll();
+  filterAll.classList.add('filter__options--active');
+  filterActive.classList.remove('filter__options--active');
+  filterCompleted.classList.remove('filter__options--active');
+});
+
+filterActive.addEventListener('click', () => {
+  todoComponent.filterActive();
+  filterActive.classList.add('filter__options--active');
+  filterAll.classList.remove('filter__options--active');
+  filterCompleted.classList.remove('filter__options--active');
+});
+
+filterCompleted.addEventListener('click', () => {
+  todoComponent.filterCompleted();
+  filterActive.classList.remove('filter__options--active');
+  filterAll.classList.remove('filter__options--active');
+  filterCompleted.classList.add('filter__options--active');
+});
+
+/*
+  Drag and drop the list items using SortableJS Library
+*/
+
+const ul = document.querySelector('#todo-ul');
+new Sortable(ul, {
+  animation: 150,
+  ghostClass: 'blue-background-class'
+});
+
+/*
+  Created two objects, one that contains all the
+  functionality of the component (todoFunctions) and the second
+  object (todoComponent) contains the data of the component.
+  todoComponent will just borrow the functions from the 
+  todoFunctions by applying Call and Bind.
+*/
 const todoFunctions = {
   createListComponents(todoText, listId){
     const ul = document.querySelector('#todo-ul');
@@ -87,12 +197,15 @@ const todoFunctions = {
     const button = document.createElement('button');
 
     input.type = 'checkbox';
+    input.id = 'checkbox-li';
+    label.setAttribute('for', 'checkbox-li');
     label.append(input, span);
     form.appendChild(label);
 
     div.innerText = todoText;
 
     li.classList.add(listId);
+    button.setAttribute('aria-label', 'delete-li');
     li.append(form, div, button);
     ul.appendChild(li);
 
@@ -133,58 +246,61 @@ const todoFunctions = {
     });
   },
   updateLi(listId){
-    const successMessage = document.querySelector('#success-message');
-    const modal = document.querySelector('.modal');
-    const modalOverlay = document.querySelector('.modal-overlay');
     successMessage.classList.remove('changes-saved');
+    successMessage.classList.remove('changes-invalid');
     modal.classList.toggle('modal__show');
     modalOverlay.classList.toggle('modal-overlay__show');
-
-    const modalClose = document.querySelectorAll('.modal-close');
-    modalClose.forEach((element) => {
-      element.addEventListener('click', () => {
-        modal.classList = 'modal';
-        modalOverlay.classList = 'modal-overlay';
-      });
-    });
-
-    const modalForm = document.querySelector('#modal-form');
-    modalForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-    });
-
-    const modalTextarea = document.querySelector('#text-area');
+    this.openModal = listId;
     this.todoData.forEach((element) => {
       if(element.todoId===listId){
-        modalTextarea.innerText = element.todoText;
-        this.openModal = listId;
+        modalTextarea.value = element.todoText;
       }
-        
     });
-
-    const saveUpdate = document.querySelector('.modal-save');
-    saveUpdate.addEventListener('click', (element) => {
-      const textareaValue = document.querySelector('#text-area').value;
-      console.log(listId);
-      this.todoData.forEach((element) => {
-        if(element.todoId===this.openModal){
-          console.log(this.openModal);
-          //if(textareaValue!=false){
-            // element.todoText = textareaValue;
-            // const div = document.querySelector(`#todo-ul .${listId} div`);
-            // div.innerText = textareaValue;
-            // successMessage.classList.add('changes-saved');
-            // setTimeout(() => {
-            //   modal.classList = 'modal';
-            //   modalOverlay.classList = 'modal-overlay';
-            // }, 500);
-          // }else {
-          //   this.removeItem(listId);
-          //   modal.classList = 'modal';
-          //   modalOverlay.classList = 'modal-overlay';
-          // }
-        }
-      });
+  },
+  itemCount(){
+    const span = document.querySelectorAll('.item-count');
+    span.forEach((element) => {
+      element.innerText = `${this.todoData.length} items left`;
+    });
+  },
+  clearCompleted(){
+    const completedTodo = [];
+    const pendingTodo = this.todoData.filter((element) => {
+      if(!element.isCompleted){
+        return element;
+      }else{
+        completedTodo.push(element.todoId);
+      }
+    });
+    this.todoData = pendingTodo.slice();
+    completedTodo.forEach((element) => {
+      this.removeItem(element);
+    });
+  },
+  filterAll(){
+    const listItems = document.querySelectorAll('#todo-ul li');
+    listItems.forEach((element) => {
+      element.classList.remove('hide-li');
+    });
+  },
+  filterActive(){
+    const listItems = document.querySelectorAll('#todo-ul li');
+    listItems.forEach((element) => {
+      if(element.getAttribute('class').includes('li-completed')){
+        element.classList.add('hide-li');
+      }else{
+        element.classList.remove('hide-li');
+      }
+    });
+  },
+  filterCompleted(){
+    const listItems = document.querySelectorAll('#todo-ul li');
+    listItems.forEach((element) => {
+      if(!element.getAttribute('class').includes('li-completed')){
+        element.classList.add('hide-li');
+      }else{
+        element.classList.remove('hide-li');
+      }
     });
   }
 }
@@ -202,16 +318,33 @@ const todoComponent = {
       todoText,
       isCompleted: false
     });
+    this.todoFunctions.itemCount.call(this);
     this.todoId+=1;
   },
   completeItem(listId){
     const markComplete = this.todoFunctions.markLiComplete.bind(this, listId);
     markComplete();
+    this.todoFunctions.itemCount.call(this);
   },
   editItem(listId){
     this.todoFunctions.updateLi.call(this, listId);
+    this.todoFunctions.itemCount.call(this);
   },
   removeItem(listId){
     this.todoFunctions.removeLi.call(this, listId);
+    this.todoFunctions.itemCount.call(this);
+  },
+  clearCompleted(){
+    this.todoFunctions.clearCompleted.call(this);
+    this.todoFunctions.itemCount.call(this);
+  },
+  filterAll(){
+    this.todoFunctions.filterAll.call(this);
+  },
+  filterActive(){
+    this.todoFunctions.filterActive.call(this);
+  },
+  filterCompleted(){
+    this.todoFunctions.filterCompleted.call(this);
   }
 }
