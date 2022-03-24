@@ -19,7 +19,8 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: https://kentmichael.github.io/todo-app/
+- SortableJS library: [Sortable](https://github.com/SortableJS/Sortable)
 
 ## My process
 
@@ -29,4 +30,3 @@ Users should be able to:
 - CSS custom properties
 - Flexbox
 - Mobile-first workflow
-- [Sortable](https://github.com/SortableJS/Sortable) - SortableJS library
