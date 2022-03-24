@@ -1,3 +1,4 @@
+'use strict';
 /*
 The page is loaded with the theme based on the user's
 last preference (stored in the local storage). This
@@ -171,11 +172,11 @@ filterCompleted.addEventListener('click', () => {
   Drag and drop the list items using SortableJS Library
 */
 
-// const ul = document.querySelector('#todo-ul');
-// new Sortable(ul, {
-//   animation: 150,
-//   ghostClass: 'blue-background-class'
-// });
+const ul = document.querySelector('#todo-ul');
+new Sortable(ul, {
+  animation: 150,
+  ghostClass: 'blue-background-class'
+});
 
 /*
   Created two objects, one that contains all the
@@ -320,7 +321,6 @@ const todoComponent = {
     this.todoId+=1;
   },
   completeItem(listId){
-    console.log(listId);
     const markComplete = this.todoFunctions.markLiComplete.bind(this, listId);
     markComplete();
     this.todoFunctions.itemCount.call(this);
